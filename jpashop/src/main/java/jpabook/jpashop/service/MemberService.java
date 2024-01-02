@@ -47,4 +47,10 @@ public class MemberService {
     public Member findOne(Long memberId){
         return memberRepository.findOne(memberId);
     }
+
+    @Transactional
+    public void update(Long id, String name) {
+        Member member = memberRepository.findOne(id); //영속 상태
+        member.setName(name); //Commit 시점에서 JPA가 변경감지 -> 쿼리 날림
+    }
 }
